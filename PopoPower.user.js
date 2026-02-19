@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.3
+// @version         0.2.4
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -488,7 +488,7 @@
                 <li>A-sidan görs offentlig 10 dagar innan singel 1</li>
                 <li>B-sidan görs offentlig 2 dagar innan singel 1</li>
                 <li>Album släpps vartannat år.</li>
-                <li>prutt</li>
+                <li>fis</li>
             </ul>
         </div>`;
 
