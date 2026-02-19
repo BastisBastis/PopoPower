@@ -4,8 +4,8 @@
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
-// @updateURL       https://gist.githubusercontent.com/BastisBastis/4f2003445e5363446d32342ae001a080/raw/PopoPower.user.js
-// @downloadURL     https://gist.githubusercontent.com/BastisBastis/4f2003445e5363446d32342ae001a080/raw/PopoPower.user.js
+// @updateURL       https://raw.githubusercontent.com/BastisBastis/PopoPower/main/PopoPower.user.js
+// @downloadURL     https://raw.githubusercontent.com/BastisBastis/PopoPower/main/PopoPower.user.js
 // @grant           GM_info
 // ==/UserScript==
 
