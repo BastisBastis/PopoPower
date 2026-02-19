@@ -488,7 +488,7 @@
                 <li>A-sidan görs offentlig 10 dagar innan singel 1</li>
                 <li>B-sidan görs offentlig 2 dagar innan singel 1</li>
                 <li>Album släpps vartannat år.</li>
-                <li>Test</li>
+                <li>TestTestTest</li>
             </ul>
         </div>`;
 
