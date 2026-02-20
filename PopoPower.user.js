@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.11
+// @version         0.2.12
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -532,6 +532,16 @@
                 <li>B-sidan görs offentlig 2 dagar innan singel 1</li>
                 <li>Album släpps vartannat år.</li>
             </ul>
+            <p>Skills:</p>
+            <p>iq, musicallity, charm, consitution, vocals, looks
+
+as for skills, as gudrun said, you need your instrument skills and event skills
+
+but you also need media manipulation+rhetoric+public relations+spin doctor mastery, basic manners, basic+prof showmanship+audience awareness7
+
+PLUS basic catwalking, basic modelling, basic make-up, basic sex appeal, basic acting, basic fashion
+
+these help with videos (acting) and stage presence</p>
         </div>`;
         
         const updateHTML = `
