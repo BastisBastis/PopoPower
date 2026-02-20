@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.6
+// @version         0.2.7
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -321,7 +321,7 @@
         const tab2Btn = document.createElement("button");
         tab2Btn.innerText = "Info";
         const tab3Btn = document.createElement("button");
-        tab2Btn.innerText = "Uppdatera";
+        tab3Btn.innerText = "Uppdatera";
 
         [tab1Btn, tab2Btn, tab3Btn].forEach(btn => {
             btn.style.flex = "1 1 30%";
@@ -335,6 +335,7 @@
 
         tabsDiv.appendChild(tab1Btn);
         tabsDiv.appendChild(tab2Btn);
+        tabsDiv.appendChild(tab3Btn);
         popup.appendChild(tabsDiv);
 
         // Innehållscontainer
