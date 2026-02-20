@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.22
+// @version         0.2.23
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -314,12 +314,14 @@ function addCharacterSwapButtons() {
     btn.style.fontSize = "14px";
     btn.style.padding = "1px 3px";
     btn.title = "CharPrevBtn";
-
+    const swapChar = (dir) => {
+        console.log(dir);
+    }
     btn.onclick = function() {
-        console.log("Prev char")
+        swapChar(-1)
     }
     const btn2 = document.createElement("button");
-    btn2.innerText = "⬅️";
+    btn2.innerText = "➡️";
     btn2.type = "button";
     btn2.style.background = "transparent";
     btn2.style.border = "none";
@@ -329,7 +331,7 @@ function addCharacterSwapButtons() {
     btn2.title = "CharNextBtn";
 
     btn2.onclick = function() {
-        console.log("Next char")
+        swapChar(1)
     }
     container.appendChild(btn);
     contianer.appendChild(btn2);
