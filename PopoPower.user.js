@@ -491,6 +491,14 @@
                 <li>fis</li>
             </ul>
         </div>`;
+        
+        const updateHTML = `
+        <div style="padding:5px; font-size:13px; line-height:1.4;">
+            <p><b>Uppdateringslänk</b></p>
+            <p><a href="https://raw.githubusercontent.com/BastisBastis/PopoPower/main/PopoPower.user.js">https://raw.githubusercontent.com/BastisBastis/PopoPower/main/PopoPower.user.js</a></p>
+        </div>
+        
+        `
 
         // Visa initialt Plan
         contentDiv.innerHTML = generatePlanTable(currentGameYear);
