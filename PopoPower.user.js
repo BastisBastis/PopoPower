@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.8
+// @version         0.2.9
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -452,9 +452,9 @@
                   "21":"Beställ singlar",
                   "26":"Lansera B-sida",
                   "28":"Singelsläpp",
+                  "43":"Spela in A-sida",
+                  "44":"Spela in B-sida",
                   "46":"Lansera A-sida",
-                  "47":"Spela in A-sida",
-                  "48":"Spela in B-sida",
                   "49":"Beställ singlar",
                   "52":"Ny setlist",
                   "56":"Singelsläpp",
@@ -466,10 +466,21 @@
                 }
                 
                 var oddYearEvents={
-                  
+                  "46":"Spela in låt 3",
+                  "47":"Spela in låt 4",
+                  "48":"Spela in låt 5",
+                  "49":"Spela in låt 6",
+                  "50":"Spela in låt 7",
+                  "51":"Spela in låt 8",
+                  "52":"Spela in låt 9",
+                  "53":"Spela in låt 10",
+                  "54":"Spela in låt 11",
+                  "55":"Spela in låt 12"
                 }
                 
                 var evenYearEvents={
+                  "1":"Spela in A-sida",
+                  "2":"Spela in B-sida",
                   "3":"Beställ album",
                   "10":"Albumsläpp"
                 }
@@ -517,14 +528,13 @@
                 <li>A-sidan görs offentlig 10 dagar innan singel 1</li>
                 <li>B-sidan görs offentlig 2 dagar innan singel 1</li>
                 <li>Album släpps vartannat år.</li>
-                <li>fis</li>
             </ul>
         </div>`;
         
         const updateHTML = `
         <div style="padding:5px; font-size:13px; line-height:1.4;">
             <p><b>Uppdateringslänk</b></p>
-            <p><a color="white" href="https://raw.githubusercontent.com/BastisBastis/PopoPower/main/PopoPower.user.js">https://raw.githubusercontent.com/BastisBastis/PopoPower/main/PopoPower.user.js</a></p>
+            <p><a style="color:white" href="https://raw.githubusercontent.com/BastisBastis/PopoPower/main/PopoPower.user.js">https://raw.githubusercontent.com/BastisBastis/PopoPower/main/PopoPower.user.js</a></p>
         </div>
         
         `
