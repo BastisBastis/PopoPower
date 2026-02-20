@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.19
+// @version         0.2.20
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -301,6 +301,40 @@
 // Kör när sidan laddat klart
 window.addEventListener("load", addScreenshotButton);
 
+function addCharacterSwapButtons() {
+    const container = document.getElementById("character-tools-character");
+    if (!container) return;
+
+    const btn = document.createElement("button");
+    btn.innerText = "⬅️";
+    btn.type = "button";
+    btn.style.background = "transparent";
+    btn.style.border = "none";
+    btn.style.cursor = "pointer";
+    btn.style.fontSize = "14px";
+    btn.style.padding = "1px 3px";
+    btn.title = "CharPrevBtn";
+
+    btn.onclick = function() {
+        console.log("Prev char")
+    }
+    const btn2 = document.createElement("button");
+    btn2.innerText = "⬅️";
+    btn2.type = "button";
+    btn2.style.background = "transparent";
+    btn2.style.border = "none";
+    btn2.style.cursor = "pointer";
+    btn2.style.fontSize = "14px";
+    btn2.style.padding = "1px 3px";
+    btn2.title = "CharNextBtn";
+
+    btn2.onclick = function() {
+        console.log("Next char")
+    }
+    container.prepend(btn2);
+    contianer.prepend(btn);
+}
+    
   function addCharacterToolsPopupButton() {
     const container = document.getElementById("character-tools-shortcuts");
     if (!container) return;
