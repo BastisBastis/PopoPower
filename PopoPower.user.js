@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.10
+// @version         0.2.11
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -447,8 +447,7 @@
                 
                 
                 var eventList = {
-                  "1":"Spela in A-sida",
-                  "2":"Spela in B-sida",
+                  
                   "9":"Big Bang",
                   "18":"Lansera A-sida",
                   "21":"Beställ singlar",
@@ -468,6 +467,8 @@
                 }
                 
                 var oddYearEvents={
+                  "19":"Spela in A-sida",
+                  "20":"Spela in B-sida",
                   "46":"Spela in låt 3",
                   "47":"Spela in låt 4",
                   "48":"Spela in låt 5",
@@ -481,7 +482,8 @@
                 }
                 
                 var evenYearEvents={
-                  
+                  "1":"Spela in Låt1/A-sida",
+                  "2":"Spela in Låt2/B-sida",
                   "3":"Beställ album",
                   "10":"Albumsläpp"
                 }
