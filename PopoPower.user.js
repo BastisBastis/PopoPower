@@ -320,8 +320,10 @@
         tab1Btn.innerText = "Plan";
         const tab2Btn = document.createElement("button");
         tab2Btn.innerText = "Info";
+        const tab3Btn = document.createElement("button");
+        tab2Btn.innerText = "Uppdatera";
 
-        [tab1Btn, tab2Btn].forEach(btn => {
+        [tab1Btn, tab2Btn, tab3Btn].forEach(btn => {
             btn.style.flex = "1 1 45%";
             btn.style.padding = "5px";
             btn.style.background = "rgba(255,255,255,0.1)";
@@ -506,6 +508,7 @@
         // Hantera flikar
         tab1Btn.onclick = () => contentDiv.innerHTML = generatePlanTable(currentGameYear);
         tab2Btn.onclick = () => contentDiv.innerHTML = infoHTML;
+        tab3Btn.onclick = () => contentDiv.innerHTML = updateHTML;
 
         // Hantera årknappar via event delegation
         contentDiv.addEventListener("click", function(e){
