@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.18
+// @version         0.2.19
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -569,7 +569,36 @@ window.addEventListener("load", addScreenshotButton);
                 <li>B-sidan görs offentlig 2 dagar innan singel 1</li>
                 <li>Album släpps vartannat år.</li>
             </ul>
-            <p>Skills:</p>
+            <p>Stats:</p>
+            <ul>
+             <li>IQ</li>
+             <li>Musicality</li>
+             <li>Charm</li>
+             <li>Constitution</li>
+             <li>Vocals</li>
+             <li>Looks</li>
+            </ul>
+            <p>Färdigheter</p>
+            <ul>
+             <li>Instrument skill</li>
+             <li>Event skills</li>
+             <li>Media manipulation</li>
+             <li>Retorik</li>
+             <li>Public Relations</li>
+             <li>Spin doctor mastery</li>
+             <li>Artisteri</li>
+             <li>Prof. Artisteri</li>
+             <li>Audience Awareness</li>
+             <li>Goda manér </li>
+             <li>Basic Catwalking</li>
+             <li>Basic Modelling</li>
+             <li>Basic Makeup</li>
+             <li>Basic Sex Appeal</li>
+             <li>Basic Acting</li>
+             <li>Basic Fashion</li>
+             <li>(Yoga)</li>
+             <li>(Avancerad yoga eller vad det heter)</li>
+            </ul>
             <p>iq, musicallity, charm, consitution, vocals, looks
 
 as for skills, as gudrun said, you need your instrument skills and event skills
