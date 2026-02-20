@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.13
+// @version         0.2.14
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
+// @require         https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js
 // @updateURL       https://raw.githubusercontent.com/BastisBastis/PopoPower/main/PopoPower.user.js
 // @downloadURL     https://raw.githubusercontent.com/BastisBastis/PopoPower/main/PopoPower.user.js
 // @grant           GM_info
@@ -260,6 +261,45 @@
     if (canExec(/\/World\/Popmundo.aspx\/Locale\/ItemsEquipment\/[0-9]*#[0-9]*$/)) {
         filterObjectsInLocation();
     }
+    
+    function addScreenshotButton() {
+    const container = document.querySelector("#planDiv");
+    if (!container) return;
+
+    // Skapa knapp
+    const btn = document.createElement("button");
+    btn.textContent = "📸 Ta skärmdump";
+    btn.style.width = "100%";
+    btn.style.padding = "12px";
+    btn.style.fontSize = "16px";
+    btn.style.cursor = "pointer";
+
+    btn.addEventListener("click", async () => {
+        const originalScrollTop = container.scrollTop;
+
+        // Scrolla till toppen temporärt
+        container.scrollTop = 0;
+
+        const canvas = await html2canvas(container, {
+            scrollY: -window.scrollY,
+            useCORS: true,
+            scale: 2
+        });
+
+        // Återställ scroll
+        container.scrollTop = originalScrollTop;
+
+        const link = document.createElement("a");
+        link.download = "screenshot.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+    });
+
+    container.appendChild(btn);
+}
+
+// Kör när sidan laddat klart
+window.addEventListener("load", addScreenshotButton);
 
   function addCharacterToolsPopupButton() {
     const container = document.getElementById("character-tools-shortcuts");
@@ -411,13 +451,13 @@
             gigMap[43-1] = "Los Angeles, 20:00";
             gigMap[44-1] = "Mexico City, 20:00";
 
-            let html = `<div style="margin-bottom:5px; display:flex; justify-content:center; gap:5px; flex-wrap:wrap;">
+          let html = `<div style="margin-bottom:5px; display:flex; justify-content:center; gap:5px; flex-wrap:wrap;">
                 <button id="prevYear" style="flex:1 1 45%; min-width:80px;">⬅️</button>
                 <span style="flex:1 1 45%; text-align:center; font-weight:bold;">År ${year}</span>
                 <button id="nextYear" style="width:80px;">➡️</button>
             </div>`;
 
-            html += `<div style="overflow-x:auto;"><table border="1" cellpadding="4" cellspacing="0" style="border-collapse:collapse; width:100%;">
+            html += `<div id="planDiv" style="overflow-x:auto;"><table border="1" cellpadding="4" cellspacing="0" style="border-collapse:collapse; width:100%;">
             <thead><tr style="background:#485663; color:white; text-align:center;">
             <th>Datum</th><th style="min-width:20">>Dag</th><th>Olle</th><th>William</th><th>Mupp</th><th>Händelser</th><th>Gig</th>
             </tr></thead><tbody>`;
@@ -514,6 +554,8 @@
             }
 
             html += '</tbody></table></div>';
+            
+ 
             return html;
         }
 
@@ -539,6 +581,7 @@ PLUS basic catwalking, basic modelling, basic make-up, basic sex appeal, basic a
 these help with videos (acting) and stage presence</p>
         </div>`;
         
+        
         const updateHTML = `
         <div style="padding:5px; font-size:13px; line-height:1.4;">
             <p><b>Uppdateringslänk</b></p>
@@ -551,7 +594,10 @@ these help with videos (acting) and stage presence</p>
         contentDiv.innerHTML = generatePlanTable(currentGameYear);
 
         // Hantera flikar
-        tab1Btn.onclick = () => contentDiv.innerHTML = generatePlanTable(currentGameYear);
+        tab1Btn.onclick = () => {
+          contentDiv.innerHTML = generatePlanTable(currentGameYear);
+          addScreenshotButton()
+        }
         tab2Btn.onclick = () => contentDiv.innerHTML = infoHTML;
         tab3Btn.onclick = () => contentDiv.innerHTML = updateHTML;
 
