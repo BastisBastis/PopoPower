@@ -324,7 +324,7 @@
         tab2Btn.innerText = "Uppdatera";
 
         [tab1Btn, tab2Btn, tab3Btn].forEach(btn => {
-            btn.style.flex = "1 1 45%";
+            btn.style.flex = "1 1 30%";
             btn.style.padding = "5px";
             btn.style.background = "rgba(255,255,255,0.1)";
             btn.style.border = "none";
