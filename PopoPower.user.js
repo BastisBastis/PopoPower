@@ -684,7 +684,7 @@ these help with videos (acting) and stage presence</p>
 }
 
 addCharacterToolsPopupButton();
-
+addCharacterSwapButtons()
 
 
 })();
