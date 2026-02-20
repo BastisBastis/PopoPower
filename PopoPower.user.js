@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.17
+// @version         0.2.18
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -549,7 +549,7 @@ window.addEventListener("load", addScreenshotButton);
                     <td style="background:#c2f0f9; color:black;">${william}</td>
                     <td style="background:#d2f9c2; color:black;">${spokSkrivare}</td>
                     <td style="background:#f0e68c; font-weight:bold; color:black;">${events}</td>
-                    <td style="background:#f5f5f5; color:black;">${gigMap[day-1-4]}</td>
+                    <td style="background:#f5f5f5; color:black;">${gigMap[((day-4+56)%56)-1]}</td>
                 </tr>`;
             }
 
