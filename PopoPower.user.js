@@ -572,9 +572,9 @@ window.addEventListener("load", addScreenshotButton);
             <p>Stats:</p>
             <ul>
              <li>IQ</li>
-             <li>Musicality</li>
+             <li>Musikalitet</li>
              <li>Charm</li>
-             <li>Constitution</li>
+             <li>Fysik</li>
              <li>Vocals</li>
              <li>Looks</li>
             </ul>
@@ -582,20 +582,20 @@ window.addEventListener("load", addScreenshotButton);
             <ul>
              <li>Instrument skill</li>
              <li>Event skills</li>
-             <li>Media manipulation</li>
+             <li>Mediamanipulation</li>
              <li>Retorik</li>
-             <li>Public Relations</li>
-             <li>Spin doctor mastery</li>
+             <li>PR</li>
+             <li>Propagandamakande</li>
              <li>Artisteri</li>
              <li>Prof. Artisteri</li>
-             <li>Audience Awareness</li>
+             <li>Känsla för publiken</li>
              <li>Goda manér </li>
              <li>Basic Catwalking</li>
-             <li>Basic Modelling</li>
-             <li>Basic Makeup</li>
-             <li>Basic Sex Appeal</li>
-             <li>Basic Acting</li>
-             <li>Basic Fashion</li>
+             <li>Modellande</li>
+             <li>Smink</li>
+             <li>Dragningskraft</li>
+             <li>Skådespeleri</li>
+             <li>Mode</li>
              <li>(Yoga)</li>
              <li>(Avancerad yoga eller vad det heter)</li>
             </ul>
