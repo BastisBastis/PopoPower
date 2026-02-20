@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.5
+// @version         0.2.6
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
