@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.14
+// @version         0.2.15
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -592,6 +592,7 @@ these help with videos (acting) and stage presence</p>
 
         // Visa initialt Plan
         contentDiv.innerHTML = generatePlanTable(currentGameYear);
+        addScreenshotButton()
 
         // Hantera flikar
         tab1Btn.onclick = () => {
@@ -603,8 +604,14 @@ these help with videos (acting) and stage presence</p>
 
         // Hantera årknappar via event delegation
         contentDiv.addEventListener("click", function(e){
-            if(e.target.id==="prevYear"){ currentGameYear--; contentDiv.innerHTML=generatePlanTable(currentGameYear);}
-            if(e.target.id==="nextYear"){ currentGameYear++; contentDiv.innerHTML=generatePlanTable(currentGameYear);}
+            if(e.target.id==="prevYear"){ 
+              currentGameYear--; contentDiv.innerHTML=generatePlanTable(currentGameYear);
+              addScreenshotButton()
+            }
+            if(e.target.id==="nextYear"){ 
+              currentGameYear++; contentDiv.innerHTML=generatePlanTable(currentGameYear);
+              addScreenshotButton()
+            }
         });
 
         document.body.appendChild(popup);
