@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.26
+// @version         0.2.27
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -316,7 +316,24 @@ function addCharacterSwapButtons() {
     btn.title = "CharPrevBtn";
     const swapChar = (dir) => {
         var select = document.getElementById("ctl00_ctl10_ucCharacterBar_ddlCurrentCharacter")
-        alert(select)
+        const lastSelectableIndex = select.options.length - 2;
+        let newIndex = select.selectedIndex + dir;
+
+        if (newIndex > lastSelectableIndex) newIndex = 0;
+        if (newIndex < 0) newIndex = lastSelectableIndex;
+
+        select.selectedIndex = newIndex;
+
+        const btnId = "ctl00_ctl10_ucCharacterBar_btnChangeCharacter";
+        const postbackId = btnId.replace(/_/g, "$");
+
+        const $btn = jQuery("#" + btnId);
+
+        if (!$btn.prop("disabled")) {
+            $btn.prop("disabled", true);
+            __doPostBack(postbackId, "");
+        }
+
     }
     btn.onclick = function() {
         swapChar(-1)
