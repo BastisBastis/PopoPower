@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.2.24
+// @version         0.2.25
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/World/Popmundo.aspx/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -619,7 +619,7 @@ function addCharacterSwapButtons() {
              <li>Instrument skill</li>
              <li>Event skills</li>
              <li>Mediamanipulation</li>
-             <li>Retorik</li>
+             <li>(Retorik ***)</li>
              <li>PR</li>
              <li>Propagandamakande</li>
              <li>Artisteri</li>
@@ -634,6 +634,8 @@ function addCharacterSwapButtons() {
              <li>Mode</li>
              <li>(Yoga)</li>
              <li>(Avancerad yoga eller vad det heter)</li>
+             <li>(Anstäldiga dryckesvanor)</li>
+             <li>(Festa hela natten)</li>
             </ul>
             <p>iq, musicallity, charm, consitution, vocals, looks
 
