@@ -315,8 +315,7 @@ function addCharacterSwapButtons() {
     btn.style.padding = "1px 3px";
     btn.title = "CharPrevBtn";
     const swapChar = (dir) => {
-        var select = document.getElementById("ctl00_ctl10_ucCharacterBar_ddlCurrentCharacter")
-        console.log(select)
+        var select = document.querySelector("#character-tools-character select");
         const lastSelectableIndex = select.options.length - 2;
         let newIndex = select.selectedIndex + dir;
 
