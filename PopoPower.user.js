@@ -58,6 +58,7 @@
     function giveScoringNumberValues() {
         jisQuery("a[href*='Scoring']").each(function () {
             let value = jisQuery(this).attr("title");
+            if (value === undefined) return;
             value = value.substring(0, value.lastIndexOf("/"));
             value = `${jisQuery(this).text()} (${value})`;
             jisQuery(this).text(value);
@@ -67,6 +68,7 @@
     function giveScoringProgressBarPercentages() {
         jisQuery('div[class*="rogressBar"]').each(function () {
             let value = jisQuery(this).attr("title");
+            if (value === undefined) return;
             value = value.substring(0, value.indexOf("%"));
 
             const span = `
@@ -82,6 +84,7 @@
     function giveScoringNegativeProgressBarPercentages() {
         jisQuery(".plusMinusBar").each(function () {
             let value = jisQuery(this).attr("title");
+            if (value === undefined) return;
             value = parseInt(value.substring(0, value.indexOf("%")));
 
             const span = `
