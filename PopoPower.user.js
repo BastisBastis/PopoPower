@@ -14,7 +14,6 @@
 
 
 (function () {
- try { 
     "use strict";
 
     const jisQuery = jQuery.noConflict();
