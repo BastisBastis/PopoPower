@@ -14,6 +14,7 @@
 
 
 (function () {
+ try { 
     "use strict";
 
     const jisQuery = jQuery.noConflict();
@@ -709,5 +710,5 @@ these help with videos (acting) and stage presence</p>
 addCharacterToolsPopupButton();
 addCharacterSwapButtons()
 
-
+} catch (er) {console.log(er.message,er.stack); throw er} 
 })();
