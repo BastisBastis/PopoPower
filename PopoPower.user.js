@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.3.1
+// @version         0.3.2
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -391,6 +391,13 @@ function addCharacterSwapButtons() {
         popup.style.display = "flex";
         popup.style.flexDirection = "column";
         popup.style.overflow = "hidden";
+        
+        const title = document.createElement("div");
+        title.innerText = "PopoPower";
+        title.style.fontSize = "18px";
+        title.style.fontWeight = "bold";
+        title.style.marginBottom = "5px";
+        popup.appendChild(title);
 
         // Stängknapp
         const closeBtn = document.createElement("button");
