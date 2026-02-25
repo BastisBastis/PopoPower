@@ -15,7 +15,9 @@
 
 (function () {
     "use strict";
-    alert(document.cookie)
+    document.cookie.split(";").forEach(c=>{
+    alert(c.trim());
+  });
 
     const jisQuery = jQuery.noConflict();
     const urlCurrent = window.location.href;
