@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.3.4
+// @version         0.3.5
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -399,24 +399,43 @@ function addCharacterSwapButtons() {
         popup.style.flexDirection = "column";
         popup.style.overflow = "hidden";
         
+        const titleContainer = document.createElement("div");
+        titleContainer.style.boxSizing = "border-box";
+        titleContainer.style.color = "#6d7f8c";
+        titleContainer.style.margin = "0";
+        titleContainer.style.padding = "5px 10px";
+        titleContainer.style.background = "#D1E1E5";
+        titleContainer.style.display = "flex";
+        titleContainer.style.alignItems = "center";
+        titleContainer.style.justifyContent = "space-between";
+        popup.appendChild(titleContainer);
+
+        const centerText = document.createElement("div");
+        centerText.innerText = GM_info.script.version;
+        centerText.style.position = "absolute";
+        centerText.style.left = "50%";
+        centerText.style.transform = "translateX(-50%)";
+        centerText.style.fontWeight = "500";
+        titleContainer.appendChild(centerText);
+
         const title = document.createElement("div");
         title.innerText = "PopoPower";
         title.style.fontSize = "18px";
         title.style.fontWeight = "bold";
         title.style.marginBottom = "5px";
-        popup.appendChild(title);
+        titleContainer.appendChild(title);
 
         // Stängknapp
         const closeBtn = document.createElement("button");
         closeBtn.innerText = "✕";
         closeBtn.style.alignSelf = "flex-end";
         closeBtn.style.background = "transparent";
-        closeBtn.style.color = "white";
+        closeBtn.style.color = "#6d7f8c";
         closeBtn.style.border = "none";
         closeBtn.style.fontSize = "18px";
         closeBtn.style.cursor = "pointer";
         closeBtn.onclick = () => popup.remove();
-        popup.appendChild(closeBtn);
+        titleContainer.appendChild(closeBtn);
 
         // Flik-knappar
         const tabsDiv = document.createElement("div");
