@@ -688,6 +688,8 @@ function addCharacterSwapButtons() {
              <li>(Avancerad yoga eller vad det heter)</li>
              <li>(Anstäldiga dryckesvanor)</li>
              <li>(Festa hela natten)</li>
+             <li>(Religion)</li>
+             <li(Tantrisk Sex</li>
             </ul>
             <p>iq, musicallity, charm, consitution, vocals, looks
 
