@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.3.6
+// @version         0.3.7
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -689,7 +689,7 @@ function addCharacterSwapButtons() {
              <li>(Anstäldiga dryckesvanor)</li>
              <li>(Festa hela natten)</li>
              <li>(Religion)</li>
-             <li(Tantrisk Sex</li>
+             <li>(Tantrisk Sex</li>
             </ul>
             <p>iq, musicallity, charm, consitution, vocals, looks
 
