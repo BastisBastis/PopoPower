@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.4.1
+// @version         0.4.2
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -813,19 +813,19 @@ these help with videos (acting) and stage presence</p>
         tab2Btn.onclick = () => contentDiv.innerHTML = infoHTML;
         tab3Btn.onclick = () => contentDiv.innerHTML = updateHTML;
         tab4Btn.onclick = () => {
+            contentDiv.innerHTML=""
             const grayBtn = document.createElement("button");
             grayBtn.type = "button"
-            grayBtn.innerText = "Grå"
-            grayBtn.style.position = "fixed";
-            grayBtn.style.bottom = "20px";
-            grayBtn.style.left = "20px";
-            grayBtn.style.zIndex = 9999;
-            grayBtn.style.padding = "8px 12px";
-            grayBtn.style.borderRadius = "6px";
+            grayBtn.innerText = "Svartvitt"
+            grayBtn.style.display = "block";
+            grayBtn.style.width = "100%";
+            grayBtn.style.padding = "10px 0";
+            grayBtn.style.borderRadius = "8px";
             grayBtn.style.border = "none";
             grayBtn.style.cursor = "pointer";
             grayBtn.style.background = "#444";
             grayBtn.style.color = "white";
+
 
 
 
