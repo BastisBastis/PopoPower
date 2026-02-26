@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.3.9
+// @version         0.4.0
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -363,6 +363,72 @@ function addCharacterSwapButtons() {
     container.appendChild(btn);
     container.appendChild(btn2);
 }
+
+    const localeUrl = "/User/Popmundo.aspx/User/LanguageSettings"; // ÄNDRA om sidan heter något annat
+
+    async function changeLanguage(languageValue) {
+
+        const res = await fetch(localeUrl, { credentials: "include" });
+        const html = await res.text();
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        const viewState = doc.querySelector("#__VIEWSTATE")?.value;
+        const eventValidation = doc.querySelector("#__EVENTVALIDATION")?.value;
+        const viewStateGen = doc.querySelector("#__VIEWSTATEGENERATOR")?.value;
+
+        const formData = new URLSearchParams();
+
+        formData.append("__EVENTTARGET", "ctl00$cphLeftColumn$ctl00$btnSetLocale");
+        formData.append("__EVENTARGUMENT", "");
+        formData.append("__VIEWSTATE", viewState);
+        formData.append("__VIEWSTATEGENERATOR", viewStateGen);
+        formData.append("__EVENTVALIDATION", eventValidation);
+
+        formData.append("ctl00$cphLeftColumn$ctl00$ddlLanguage", languageValue);
+        formData.append("ctl00$cphLeftColumn$ctl00$btnSetLocale", "Spara");
+
+        await fetch(localeUrl, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: formData.toString()
+        });
+
+        location.reload();
+    }
+
+    var abuseBtnContainer = document.querySelector("#ctl00_ctl08_ucCharacterBar_lnkReportAbuse")
+    abuseBtnContainer.remove()
+    const languageToggleBtn = document.createElement("button");
+    languageToggleBtn.textContent = "🌐";
+    languageToggleBtn.type = "button";
+    languageToggleBtn.style.background = "transparent";
+    languageToggleBtn.style.border = "none";
+    languageToggleBtn.style.cursor = "pointer";
+    languageToggleBtn.style.fontSize = "14px";
+    languageToggleBtn.style.padding = "1px 3px";
+
+    languageToggleBtn.onclick = async () => {
+
+        // Gissa nuvarande språk genom att kolla html-lang
+        var currentLang = 1
+        if (document.querySelector("#ctl00_ctl08_ucMenu_lnkStart").innerHTML=="Welcome") {
+            currentLang = 2
+        }
+
+
+        if (currentLang == 1) {
+            await changeLanguage("2"); // Engelska
+        } else {
+            await changeLanguage("1"); // Svenska
+        }
+    };
+
+    document.querySelector("#character-tools-account").appendChild(languageToggleBtn);
     
   function addCharacterToolsPopupButton() {
     const container = document.getElementById("character-tools-shortcuts");
