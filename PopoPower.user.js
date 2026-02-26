@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.4.0
+// @version         0.4.1
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -429,6 +429,26 @@ function addCharacterSwapButtons() {
     };
 
     document.querySelector("#character-tools-account").appendChild(languageToggleBtn);
+
+function applyGrayscale(enabled) {
+
+        if (enabled) {
+            document.documentElement.style.filter = "grayscale(100%)";
+        } else {
+            document.documentElement.style.filter = "";
+        }
+    }
+
+    applyGrayscale(localStorage.getItem("grayscaleEnabled") === "true")
+
+    function toggleGrayscale() {
+        const STORAGE_KEY = "grayscaleEnabled";
+        let isEnabled = localStorage.getItem(STORAGE_KEY) === "true";
+        isEnabled = !isEnabled;
+
+        localStorage.setItem(STORAGE_KEY, isEnabled);
+        applyGrayscale(isEnabled);
+    }
     
   function addCharacterToolsPopupButton() {
     const container = document.getElementById("character-tools-shortcuts");
@@ -517,8 +537,10 @@ function addCharacterSwapButtons() {
         tab2Btn.innerText = "Info";
         const tab3Btn = document.createElement("button");
         tab3Btn.innerText = "Uppdatera";
+        const tab4Btn = document.createElement("button");
+        tab4Btn.innerText = "Inställningar";
 
-        [tab1Btn, tab2Btn, tab3Btn].forEach(btn => {
+        [tab1Btn, tab2Btn, tab3Btn, tab4Btn].forEach(btn => {
             btn.style.flex = "1 1 30%";
             btn.style.padding = "5px";
             btn.style.background = "rgba(255,255,255,0.1)";
@@ -531,6 +553,7 @@ function addCharacterSwapButtons() {
         tabsDiv.appendChild(tab1Btn);
         tabsDiv.appendChild(tab2Btn);
         tabsDiv.appendChild(tab3Btn);
+        tabsDiv.appendChild(tab4Btn);
         popup.appendChild(tabsDiv);
 
         // Innehållscontainer
@@ -789,7 +812,28 @@ these help with videos (acting) and stage presence</p>
         }
         tab2Btn.onclick = () => contentDiv.innerHTML = infoHTML;
         tab3Btn.onclick = () => contentDiv.innerHTML = updateHTML;
+        tab4Btn.onclick = () => {
+            const grayBtn = document.createElement("button");
+            grayBtn.type = "button"
+            grayBtn.innerText = "Grå"
+            grayBtn.style.position = "fixed";
+            grayBtn.style.bottom = "20px";
+            grayBtn.style.left = "20px";
+            grayBtn.style.zIndex = 9999;
+            grayBtn.style.padding = "8px 12px";
+            grayBtn.style.borderRadius = "6px";
+            grayBtn.style.border = "none";
+            grayBtn.style.cursor = "pointer";
+            grayBtn.style.background = "#444";
+            grayBtn.style.color = "white";
 
+
+
+            grayBtn.onclick = toggleGrayscale
+
+            contentDiv.appendChild(grayBtn);
+        }
+        
         // Hantera årknappar via event delegation
         contentDiv.addEventListener("click", function(e){
             if(e.target.id==="prevYear"){ 
