@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.4.2
+// @version         0.4.3
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -8,6 +8,8 @@
 // @updateURL       https://raw.githubusercontent.com/BastisBastis/PopoPower/main/PopoPower.user.js
 // @downloadURL     https://raw.githubusercontent.com/BastisBastis/PopoPower/main/PopoPower.user.js
 // @grant           GM_info
+// @grant           GM_xmlhttpRequest
+// @connect         www.popmundo.com
 // ==/UserScript==
 
 /* global jQuery */
@@ -15,7 +17,69 @@
 
 (function () {
     "use strict";
-    
+
+    const url = "https://www.popmundo.com/World/Popmundo.aspx/Character/Skills/31002";
+
+    GM_xmlhttpRequest({
+        method: "GET",
+        url: url,
+        withCredentials: true,
+        onload: function(response) {
+
+            if (response.status !== 200) {
+                console.log("Request misslyckades:", response.status);
+                return;
+            }
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(response.responseText, "text/html");
+
+            // Kontrollera om vi fått login-sidan istället
+            if (doc.querySelector('input[type="password"]')) {
+                console.log("Inte inloggad – fick login-sidan istället.");
+                return;
+            }
+
+            // Hitta första tabellen som har minst 2 TD per rad
+            const tables = doc.querySelectorAll("table");
+            let targetTable = null;
+
+            for (const table of tables) {
+                const rows = table.querySelectorAll("tr");
+                for (const row of rows) {
+                    const cols = row.querySelectorAll("td");
+                    if (cols.length >= 2) {
+                        targetTable = table;
+                        break;
+                    }
+                }
+                if (targetTable) break;
+            }
+
+            if (!targetTable) {
+                console.log("Ingen giltig datatabell hittades.");
+                return;
+            }
+
+            const skillsDict = {};
+
+            targetTable.querySelectorAll("tr").forEach(row => {
+                const cols = row.querySelectorAll("td");
+
+                if (cols.length >= 2) {
+                    const key = cols[0].textContent.trim();
+                    const value = cols[1].textContent.trim();
+
+                    if (key) {
+                        skillsDict[key] = value.split("draw")[0];
+                        console.log(key, skillsDict[key])
+                    }
+                }
+            });
+
+            console.log("Skills dictionary:", skillsDict);
+        }
+    });
 
     const jisQuery = jQuery.noConflict();
     const urlCurrent = window.location.href;
