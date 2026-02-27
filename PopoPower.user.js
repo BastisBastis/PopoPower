@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.5.8
+// @version         0.5.9
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -18,7 +18,7 @@
 (function () {
     "use strict";
 
-    try {
+    //try {
 
     const jisQuery = jQuery.noConflict();
     const urlCurrent = window.location.href;
@@ -1013,5 +1013,5 @@ these help with videos (acting) and stage presence</p>
 
 addCharacterToolsPopupButton();
 addCharacterSwapButtons()
-    } catch (er) { alert(er)}
+//    } catch (er) { alert(er)}
 })();
