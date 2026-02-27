@@ -446,13 +446,7 @@ function applyGrayscale(enabled) {
 
         if (enabled) {
             document.documentElement.style.filter = "grayscale(100%)";
-            const style = document.createElement('style');
-            style.innerHTML = `
-              .gameimage {
-                visible: none;
-              }
-            `;
-            document.head.appendChild(style);
+           
         } else {
             document.documentElement.style.filter = "";
         }
