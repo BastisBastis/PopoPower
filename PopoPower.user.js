@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.4.3
+// @version         0.4.4
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -599,12 +599,14 @@ function applyGrayscale(enabled) {
         tab1Btn.innerText = "Plan";
         const tab2Btn = document.createElement("button");
         tab2Btn.innerText = "Info";
+        const tabSkillsBtn = document.createElement("button");
+        tabSkillsBtn.innerText = "Färdigheter"
         const tab3Btn = document.createElement("button");
         tab3Btn.innerText = "Uppdatera";
         const tab4Btn = document.createElement("button");
         tab4Btn.innerText = "Inställningar";
 
-        [tab1Btn, tab2Btn, tab3Btn, tab4Btn].forEach(btn => {
+        [tab1Btn, tab2Btn, tabSkillsBtn, tab3Btn, tab4Btn].forEach(btn => {
             btn.style.flex = "1 1 30%";
             btn.style.padding = "5px";
             btn.style.background = "rgba(255,255,255,0.1)";
@@ -616,6 +618,7 @@ function applyGrayscale(enabled) {
 
         tabsDiv.appendChild(tab1Btn);
         tabsDiv.appendChild(tab2Btn);
+        tabsDiv.appendChild(tabSkillsBtn);
         tabsDiv.appendChild(tab3Btn);
         tabsDiv.appendChild(tab4Btn);
         popup.appendChild(tabsDiv);
@@ -801,6 +804,132 @@ function applyGrayscale(enabled) {
             return html;
         }
 
+        const skillsToGet = [
+            "Basic Media Manipulation",
+            "Rhetoric",
+            "Public Relations",
+            "Spin Doctor Mastery",
+            "Basic Manners",
+            "Basic Showmanship",
+            "Professional Showmanship",
+            "Audience Awareness",
+            "Basic Catwalking",
+            "Basic Modeling",
+            "Basic Make Up",
+            "Basic Sex Appeal",
+            "Basic Acting",
+            "Basic Fashion",
+            "Basic Religion"
+        ]
+
+        function getSkillsForCharacter(charId, callback) {
+            const url = "https://www.popmundo.com/World/Popmundo.aspx/Character/Skills/" + charId;
+
+            GM_xmlhttpRequest({
+                method: "GET",
+                url: url,
+                withCredentials: true,
+                onload: function(response) {
+
+                    if (response.status !== 200) {
+                        console.log("Request misslyckades:", response.status);
+                        return;
+                    }
+
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(response.responseText, "text/html");
+
+                    // Kontrollera om vi fått login-sidan istället
+                    if (doc.querySelector('input[type="password"]')) {
+                        console.log("Inte inloggad – fick login-sidan istället.");
+                        return;
+                    }
+
+                    // Hitta första tabellen som har minst 2 TD per rad
+                    const tables = doc.querySelectorAll("table");
+                    let targetTable = null;
+
+                    for (const table of tables) {
+                        const rows = table.querySelectorAll("tr");
+                        for (const row of rows) {
+                            const cols = row.querySelectorAll("td");
+                            if (cols.length >= 2) {
+                                targetTable = table;
+                                break;
+                            }
+                        }
+                        if (targetTable) break;
+                    }
+
+                    if (!targetTable) {
+                        console.log("Ingen giltig datatabell hittades.");
+                        return;
+                    }
+
+                    const skillsDict = {};
+
+                    targetTable.querySelectorAll("tr").forEach(row => {
+                        const cols = row.querySelectorAll("td");
+
+                        if (cols.length >= 2) {
+                            const key = cols[0].textContent.trim();
+                            const value = cols[1].textContent.trim();
+
+                            if (key) {
+                                skillsDict[key] = value.split("draw")[0];
+                            }
+                        }
+                    });
+
+                    callback(skillsDict)
+                }
+            });
+
+
+        }
+
+        function setSkillsContent() {
+            contentDiv.innerHTML = ""
+            const characters = [
+                {
+                    name: "William",
+                    id: 40160
+                },
+                {
+                    name: "Olle",
+                    id: 31002
+                }
+            ]
+
+            for (let character of characters) {
+
+                getSkillsForCharacter(character.id, (skills)=>{
+                    contentDiv.innerHTML += '<h1 style="font-size:22px; font-weight:600; margin-bottom:8px;">'+character.name+"</h1><ul>"
+                    console.log(skills)
+                    for (var key of skillsToGet) {
+                        contentDiv.innerHTML += "<li>" + key + ": "
+                        if (skills[key]) {
+                            for (var i = 0; i < 50; i +=10) {
+                                if (i >= skills[key])
+                                    contentDiv.innerHTML += "<span style='color:red; font-size:20px;'>★</span>"
+                                else
+                                    contentDiv.innerHTML += "<span style='color:yellow; font-size:20px;'>★</span>"
+                            }
+
+
+                        } else {
+                            contentDiv.innerHTML += "-"
+                        }
+
+                        contentDiv.innerHTML += "</li>"
+                    }
+
+                })
+                contentDiv.innerHTML += "</ul><br>"
+
+            }
+        }
+
         const infoHTML = `<div style="padding:5px; font-size:13px; line-height:1.4;">
             <p><b>Årsplanering i Popmundo:</b></p>
             <ul>
@@ -875,6 +1004,7 @@ these help with videos (acting) and stage presence</p>
           addScreenshotButton()
         }
         tab2Btn.onclick = () => contentDiv.innerHTML = infoHTML;
+        tabSkillsBtn.onclick = setSkillsContent
         tab3Btn.onclick = () => contentDiv.innerHTML = updateHTML;
         tab4Btn.onclick = () => {
             contentDiv.innerHTML=""
