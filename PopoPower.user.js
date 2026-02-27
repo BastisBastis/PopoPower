@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.5.4
+// @version         0.5.5
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -369,40 +369,47 @@ function addCharacterSwapButtons() {
 
     const localeUrl = "/User/Popmundo.aspx/User/LanguageSettings"; // ÄNDRA om sidan heter något annat
 
-    async function changeLanguage(languageValue) {
-
-        const res = await fetch(localeUrl, { credentials: "include" });
-        const html = await res.text();
-
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-
-        const viewState = doc.querySelector("#__VIEWSTATE")?.value;
-        const eventValidation = doc.querySelector("#__EVENTVALIDATION")?.value;
-        const viewStateGen = doc.querySelector("#__VIEWSTATEGENERATOR")?.value;
-
-        const formData = new URLSearchParams();
-
-        formData.append("__EVENTTARGET", "ctl00$cphLeftColumn$ctl00$btnSetLocale");
-        formData.append("__EVENTARGUMENT", "");
-        formData.append("__VIEWSTATE", viewState);
-        formData.append("__VIEWSTATEGENERATOR", viewStateGen);
-        formData.append("__EVENTVALIDATION", eventValidation);
-
-        formData.append("ctl00$cphLeftColumn$ctl00$ddlLanguage", languageValue);
-        formData.append("ctl00$cphLeftColumn$ctl00$btnSetLocale", "Spara");
-
-        await fetch(localeUrl, {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: formData.toString()
+    function changeLanguageGM(languageValue) {
+        const localeUrl = "/User/Popmundo.aspx/User/LanguageSettings";
+    
+        // Hämta sidan
+        GM_xmlhttpRequest({
+            method: "GET",
+            url: localeUrl,
+            withCredentials: true,
+            onload: function(res) {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(res.responseText, "text/html");
+    
+                const viewState = doc.querySelector("#__VIEWSTATE")?.value || "";
+                const eventValidation = doc.querySelector("#__EVENTVALIDATION")?.value || "";
+                const viewStateGen = doc.querySelector("#__VIEWSTATEGENERATOR")?.value || "";
+    
+                const formData = new URLSearchParams();
+                formData.append("__EVENTTARGET", "ctl00$cphLeftColumn$ctl00$btnSetLocale");
+                formData.append("__EVENTARGUMENT", "");
+                formData.append("__VIEWSTATE", viewState);
+                formData.append("__VIEWSTATEGENERATOR", viewStateGen);
+                formData.append("__EVENTVALIDATION", eventValidation);
+                formData.append("ctl00$cphLeftColumn$ctl00$ddlLanguage", languageValue);
+                formData.append("ctl00$cphLeftColumn$ctl00$btnSetLocale", "Spara");
+    
+                GM_xmlhttpRequest({
+                    method: "POST",
+                    url: localeUrl,
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    data: formData.toString(),
+                    onload: function() {
+                        location.reload();
+                    }
+                });
+            }
         });
-
-        location.reload();
     }
+
 
     var abuseBtnContainer = document.querySelector("#ctl00_ctl08_ucCharacterBar_lnkReportAbuse")
     abuseBtnContainer.remove()
@@ -425,9 +432,9 @@ function addCharacterSwapButtons() {
 
 
         if (currentLang == 1) {
-            await changeLanguage("2"); // Engelska
+            changeLanguage("2"); // Engelska
         } else {
-            await changeLanguage("1"); // Svenska
+            changeLanguage("1"); // Svenska
         }
     };
 
