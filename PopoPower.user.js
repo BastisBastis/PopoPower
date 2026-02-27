@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.5.5
+// @version         0.5.6
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -369,7 +369,7 @@ function addCharacterSwapButtons() {
 
     const localeUrl = "/User/Popmundo.aspx/User/LanguageSettings"; // ÄNDRA om sidan heter något annat
 
-    function changeLanguageGM(languageValue) {
+    function changeLanguage(languageValue) {
         const localeUrl = "/User/Popmundo.aspx/User/LanguageSettings";
     
         // Hämta sidan
