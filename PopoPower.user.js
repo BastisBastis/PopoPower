@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.5.3
+// @version         0.5.4
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -851,32 +851,37 @@ function applyGrayscale(enabled) {
                     id: 3038388
                 }
             ]
+            var index = 0
 
             for (let character of characters) {
 
-                getSkillsForCharacter(character.id, (skills)=>{
-                    contentDiv.innerHTML += '<h1 style="font-size:22px; font-weight:600; margin-bottom:8px;">'+character.name+"</h1><ul>"
-                    console.log(skills)
-                    for (var key of skillsToGet) {
-                        contentDiv.innerHTML += "<li>" + key + ": "
-                        if (skills[key]) {
-                            for (var i = 0; i < 50; i +=10) {
-                                if (i >= skills[key])
-                                    contentDiv.innerHTML += "<span style='color:red; font-size:20px;'>★</span>"
-                                else
-                                    contentDiv.innerHTML += "<span style='color:yellow; font-size:20px;'>★</span>"
+                setTimeout(()=>{
+
+                    getSkillsForCharacter(character.id, (skills)=>{
+                        contentDiv.innerHTML += '<h1 style="font-size:22px; font-weight:600; margin-bottom:8px;">'+character.name+"</h1><ul>"
+                        console.log(skills)
+                        for (var key of skillsToGet) {
+                            contentDiv.innerHTML += "<li>" + key + ": "
+                            if (skills[key]) {
+                                for (var i = 0; i < 50; i +=10) {
+                                    if (i >= skills[key])
+                                        contentDiv.innerHTML += "<span style='color:red; font-size:20px;'>★</span>"
+                                    else
+                                        contentDiv.innerHTML += "<span style='color:yellow; font-size:20px;'>★</span>"
+                                }
+
+
+                            } else {
+                                contentDiv.innerHTML += "-"
                             }
 
-
-                        } else {
-                            contentDiv.innerHTML += "-"
+                            contentDiv.innerHTML += "</li>"
                         }
 
-                        contentDiv.innerHTML += "</li>"
-                    }
-
-                })
-                contentDiv.innerHTML += "</ul><br>"
+                    })
+                    contentDiv.innerHTML += "</ul><br>"
+                }, index * 300)
+                index += 1
 
             }
         }
