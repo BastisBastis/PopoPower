@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.5.7
+// @version         0.5.8
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -410,9 +410,11 @@ function addCharacterSwapButtons() {
         });
     }
 
-
+    
     var abuseBtnContainer = document.querySelector("#ctl00_ctl08_ucCharacterBar_lnkReportAbuse")
-    abuseBtnContainer.remove()
+    if (abuseBtnContainer) {
+        abuseBtnContainer.remove()
+    }
     const languageToggleBtn = document.createElement("button");
     languageToggleBtn.textContent = "🌐";
     languageToggleBtn.type = "button";
