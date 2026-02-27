@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.5.1
+// @version         0.5.2
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -843,12 +843,12 @@ function applyGrayscale(enabled) {
                     id: 3105174
                 },
                 {
-                    name:"Ulla",
-                    id: 3038388,
+                    name:"Ola",
+                    id: 2982032,
                 },
                 {
-                    name: "Ollie",
-                    id: 3099302
+                    name:"Ulla",
+                    id: 3038388,
                 }
             ]
 
