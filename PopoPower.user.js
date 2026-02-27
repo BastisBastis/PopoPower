@@ -844,11 +844,11 @@ function applyGrayscale(enabled) {
                 },
                 {
                     name:"Ola",
-                    id: 2982032,
+                    id: 2982032
                 },
                 {
                     name:"Ulla",
-                    id: 3038388,
+                    id: 3038388
                 }
             ]
 
