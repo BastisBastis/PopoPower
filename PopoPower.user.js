@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.5.10
+// @version         0.5.11
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -268,6 +268,62 @@
     if (canExec(/\/World\/Popmundo.aspx\/Locale\/ItemsEquipment\/[0-9]*#[0-9]*$/)) {
         filterObjectsInLocation();
     }
+
+    function showDiaryTimes() {
+        var diaryContainer = document.querySelector("#ctl00_cphLeftColumn_ctl00_divRecentEvents")
+        if (!diaryContainer) return;
+
+
+
+        const diaryUrl = document.querySelector("#mnuToolTipDiary a").href
+
+        // Hämta sidan
+        GM_xmlhttpRequest({
+            method: "GET",
+            url: diaryUrl,
+            withCredentials: true,
+            onload: function(res) {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(res.responseText, "text/html");
+                var timestamps = []
+
+                var diaryContainer = doc.querySelector(".diaryExtraspace")
+                var days = Array.from(diaryContainer.children)
+                var day = 0
+                var entryCount = 0
+                var dayEntryCount = 0
+                for (let i = 0; i<6; i++) {
+                    var diaryDay = days[day].querySelector("ul")
+                    var dayEntries = Array.from(diaryDay.children)
+                    var entry = dayEntries[dayEntryCount]
+                    var timestamp = entry.innerHTML.slice(0, 6);
+                    timestamps.push(timestamp)
+                    dayEntryCount++
+                    if (dayEntryCount >= dayEntries.length) {
+                        day++
+                        dayEntryCount = 0
+                    }
+                }
+                var diaryElements = Array.from(document.querySelectorAll(".diaryExtraspace li"))
+
+                for (var i = 0; i<6; i++) {
+                    if (i < timestamps.length && i < diaryElements.length) {
+                        var diaryEl = diaryElements[i]
+                        diaryEl.innerHTML = timestamps[i] + " " + diaryEl.innerHTML
+                    }
+                }
+
+
+
+            }
+        });
+        //Fetch times
+        var entryTimes = []
+
+
+    }
+
+    showDiaryTimes()
     
     function addScreenshotButton() {
     const container = document.querySelector("#planDiv");
