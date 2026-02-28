@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.5.12
+// @version         0.5.13
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -325,7 +325,7 @@
 
     showDiaryTimes()
 
-     callAll() {
+    function callAll() {
         console.log("Call all")
         const url = "/World/Popmundo.aspx/Character/Relations/"
 
