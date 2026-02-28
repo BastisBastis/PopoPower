@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.5.11
+// @version         0.5.12
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -324,6 +324,79 @@
     }
 
     showDiaryTimes()
+
+     callAll() {
+        console.log("Call all")
+        const url = "/World/Popmundo.aspx/Character/Relations/"
+
+        // Hämta sidan
+        GM_xmlhttpRequest({
+            method: "GET",
+            url: url,
+            withCredentials: true,
+            onload: function(res) {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(res.responseText, "text/html");
+
+                var table = doc.querySelector("table")
+                var rows = Array.from(table.querySelectorAll("tr"))
+                for (let i = 1; i<rows.length; i++) {
+                    setTimeout(()=>{
+                        let row = rows[i]
+                        let linkCell = row.children[row.children.length-1]
+                        let linkParts = linkCell.querySelector("a").href.split("/")
+                        let charId = linkParts[linkParts.length-1]
+                        let callUrl = "/World/Popmundo.aspx/Interact/Phone/" + charId
+
+
+                        console.log(callUrl)
+                        GM_xmlhttpRequest({
+                            method: "GET",
+                            url: callUrl,
+                            withCredentials: true,
+                            onload: function(res2) {
+                                const parser = new DOMParser();
+                                const doc2 = parser.parseFromString(res2.responseText, "text/html");
+                                console.log(callUrl + " loaded")
+                                var valueCalls = [ 9999, 121, 24, 61, 58, 26, 25, 73, 74 ]
+
+                                const select = doc2.querySelector(".interactHolder select");
+                                if (!select) {
+                                    console.log("select not found")
+                                    return
+                                }
+
+                                let i = 0
+                                while (i < valueCalls.length) {
+                                    let value = valueCalls[i]
+                                    const optionExists = select.querySelector(`option[value="${value}"]`);
+
+                                    if (optionExists) {
+                                        select.value = value;
+                                        console.log("Satte:", value);
+
+                                        i = valueCalls.length + 1
+                                    }
+                                    i++
+                                }
+                                console.log(select.value)
+
+
+
+
+
+
+                            }
+                        });
+
+                    }, (i-1)*800)
+                }
+
+
+
+            }
+        });
+    }
     
     function addScreenshotButton() {
     const container = document.querySelector("#planDiv");
@@ -609,7 +682,7 @@ function applyGrayscale(enabled) {
         const tab3Btn = document.createElement("button");
         tab3Btn.innerText = "Uppdatera";
         const tab4Btn = document.createElement("button");
-        tab4Btn.innerText = "Inställningar";
+        tab4Btn.innerText = "Annat";
 
         [tab1Btn, tab2Btn, tabSkillsBtn, tab3Btn, tab4Btn].forEach(btn => {
             btn.style.flex = "1 1 30%";
@@ -1030,24 +1103,30 @@ these help with videos (acting) and stage presence</p>
         tab3Btn.onclick = () => contentDiv.innerHTML = updateHTML;
         tab4Btn.onclick = () => {
             contentDiv.innerHTML=""
+            var btns = []
             const grayBtn = document.createElement("button");
-            grayBtn.type = "button"
             grayBtn.innerText = "Svartvitt"
-            grayBtn.style.display = "block";
-            grayBtn.style.width = "100%";
-            grayBtn.style.padding = "10px 0";
-            grayBtn.style.borderRadius = "8px";
-            grayBtn.style.border = "none";
-            grayBtn.style.cursor = "pointer";
-            grayBtn.style.background = "#444";
-            grayBtn.style.color = "white";
-
-
-
-
             grayBtn.onclick = toggleGrayscale
+            btns.push(grayBtn)
 
-            contentDiv.appendChild(grayBtn);
+            const callBtn = document.createElement("button");
+            callBtn.innerText = "Ring alla"
+            callBtn.onclick = callAll
+            btns.push(callBtn)
+
+            for (let btn of btns) {
+                btn.type = "button"
+                btn.style.display = "block";
+                btn.style.width = "100%";
+                btn.style.padding = "10px 0";
+                btn.style.margin = "5px 0";
+                btn.style.borderRadius = "8px";
+                btn.style.border = "none";
+                btn.style.cursor = "pointer";
+                btn.style.background = "#444";
+                btn.style.color = "white";
+                contentDiv.appendChild(btn);
+            }
         }
         
         // Hantera årknappar via event delegation
