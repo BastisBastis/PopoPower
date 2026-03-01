@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.5.13
+// @version         0.5.14
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -270,6 +270,7 @@
     }
 
     function showDiaryTimes() {
+        try {
         var diaryContainer = document.querySelector("#ctl00_cphLeftColumn_ctl00_divRecentEvents")
         if (!diaryContainer) return;
 
@@ -319,6 +320,8 @@
         });
         //Fetch times
         var entryTimes = []
+
+        } catch(er) {alert(er)}
 
 
     }
