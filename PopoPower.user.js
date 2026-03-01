@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.5.17
+// @version         0.5.18
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -270,12 +270,13 @@
     }
 
     function showDiaryTimes() {
-        var diaryContainer = document.querySelector("#ctl00_cphLeftColumn_ctl00_divRecentEvents")
+        let diaryContainer = document.querySelector("#ctl00_cphLeftColumn_ctl00_divRecentEvents")
         if (!diaryContainer) return;
 
 
 
         const diaryUrl = document.querySelector("#mnuToolTipDiary a").href
+        alert(diaryUrl)
 
         // Hämta sidan
         GM_xmlhttpRequest({
@@ -288,7 +289,7 @@
                 const doc = parser.parseFromString(res.responseText, "text/html");
                 var timestamps = []
 
-                var diaryContainer = doc.querySelector(".diaryExtraspace")
+                let diaryContainer = doc.querySelector(".diaryExtraspace")
                 var days = Array.from(diaryContainer.children)
                 var day = 0
                 var entryCount = 0
