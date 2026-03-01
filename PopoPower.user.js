@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.5.18
+// @version         0.5.19
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -288,6 +288,8 @@
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(res.responseText, "text/html");
                 var timestamps = []
+
+                    document.body.insertAdjacentHTML("beforeend", `<div onclick="this.remove()" style="position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:999999;overflow:auto;padding:20px;box-sizing:border-box;"><div style="background:#fff;color:#000;padding:20px;border-radius:8px;max-width:1000px;margin:auto;">${doc.innerHTML}</div></div>`);
 
                 let diaryContainer = doc.querySelector(".diaryExtraspace")
                 var days = Array.from(diaryContainer.children)
