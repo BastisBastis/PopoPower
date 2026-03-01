@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            PopoPower
-// @version         0.5.20
+// @version         0.5.21
 // @description     Stora delar skamlöst stulna
 // @match           https://*.popmundo.com/*
 // @require         https://code.jquery.com/jquery-1.7.1.min.js
@@ -18,7 +18,7 @@
 (function () {
     "use strict";
 
-    try {
+    //try {
 
     const jisQuery = jQuery.noConflict();
     const urlCurrent = window.location.href;
@@ -26,6 +26,33 @@
     const numCities = 49;
     let mediaFame = 0;
     let mediaMC = 0;
+
+    function iframeRequest({ url, onload, onerror }) {
+
+        const iframe = document.createElement("iframe");
+        iframe.style.display = "none";
+        iframe.src = url;
+
+        iframe.onload = function () {
+            try {
+                const doc = iframe.contentDocument || iframe.contentWindow.document;
+                const responseText = doc.documentElement.outerHTML;
+
+                onload && onload({ responseText });
+
+            } catch (err) {
+                if (onerror) {
+                    onerror(err);
+                } else {
+                    console.error("iframeRequest error:", err);
+                }
+            }
+
+            iframe.remove();
+        };
+
+        document.body.appendChild(iframe);
+    }
 
     function appendJsFile(src) {
         const script = document.createElement("script");
@@ -276,22 +303,20 @@
 
 
         const diaryUrl = document.querySelector("#mnuToolTipDiary a").href
-        alert(diaryUrl)
+        //alert(diaryUrl)
 
         // Hämta sidan
-        GM_xmlhttpRequest({
-            method: "GET",
+        iframeRequest({
             url: diaryUrl,
-            withCredentials: true,
             onload: function(res) {
                 try{
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(res.responseText, "text/html");
                 var timestamps = []
-                    alert(res)
-                    alert(res.responseText)
+                    //alert(res)
+                   // alert(res.responseText)
 
-                    document.body.insertAdjacentHTML("beforeend", `<div onclick="this.remove()" style="position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:999999;overflow:auto;padding:20px;box-sizing:border-box;"><div style="background:#fff;color:#000;padding:20px;border-radius:8px;max-width:1000px;margin:auto;">${res.responseText}</div></div>`);
+                    //document.body.insertAdjacentHTML("beforeend", `<div onclick="this.remove()" style="position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:999999;overflow:auto;padding:20px;box-sizing:border-box;"><div style="background:#fff;color:#000;padding:20px;border-radius:8px;max-width:1000px;margin:auto;">${res.responseText}</div></div>`);
 
                 let diaryContainer = doc.querySelector(".diaryExtraspace")
                 var days = Array.from(diaryContainer.children)
@@ -310,7 +335,7 @@
                         dayEntryCount = 0
                     }
                 }
-                alert("Hopp + " + timestamps[0])
+                //alert("Hopp + " + timestamps[0])
                 var diaryElements = Array.from(document.querySelectorAll(".diaryExtraspace li"))
 
                 for (var i = 0; i<6; i++) {
